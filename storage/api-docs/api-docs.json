@@ -1,0 +1,201 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "URL Shortener API",
+        "description": "API to shorten URLs and get original URLs.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/url": {
+            "get": {
+                "tags": [
+                    "URLs"
+                ],
+                "summary": "Gets all shortened URLs",
+                "description": "Returns a list of all stored shortened URLs.",
+                "operationId": "c1f9f16f0f0c6f0ad68faedb7ab29e45",
+                "responses": {
+                    "200": {
+                        "description": "List of shortened URLs",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "original_url": {
+                                                "type": "string",
+                                                "example": "http://example.com"
+                                            },
+                                            "short_code": {
+                                                "type": "string",
+                                                "example": "abc123"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "URLs"
+                ],
+                "summary": "Creates a shortened URL",
+                "description": "Receives a long URL and returns its shortened version.",
+                "operationId": "0ca3532139a6ac2d36be7b8a560361af",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "url"
+                                ],
+                                "properties": {
+                                    "url": {
+                                        "type": "string",
+                                        "example": "http://example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Shortened URL created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "original_url": {
+                                            "type": "string",
+                                            "example": "http://example.com"
+                                        },
+                                        "short_code": {
+                                            "type": "string",
+                                            "example": "abc123"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Invalid data"
+                    }
+                }
+            }
+        },
+        "/api/{shortCode}": {
+            "get": {
+                "tags": [
+                    "URLs"
+                ],
+                "summary": "Retrieve the original URL by its short code",
+                "description": "Searches and returns the original URL associated with the provided short code.",
+                "operationId": "d9ddb02274e824c5997b50963ab43f59",
+                "parameters": [
+                    {
+                        "name": "shortCode",
+                        "in": "path",
+                        "description": "Short code of the URL",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "abc123"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Original URL found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "url": {
+                                            "type": "object",
+                                            "example": {
+                                                "id": 1,
+                                                "original_url": "http://example.com",
+                                                "short_code": "abc123"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "URL not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "URL not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/url/{ID}": {
+            "delete": {
+                "tags": [
+                    "URLs"
+                ],
+                "summary": "Delete a shortened URL",
+                "description": "Deletes a shortened URL using its ID.",
+                "operationId": "5cb138e593cd68fd87d55cf77fc92983",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the URL to delete",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": "123"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "URL successfully deleted"
+                    },
+                    "404": {
+                        "description": "URL not found"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "URLs",
+            "description": "URLs"
+        }
+    ]
+}
