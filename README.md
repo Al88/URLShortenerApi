@@ -20,7 +20,7 @@ Clona el repositorio a tu máquina local:
 
 ```bash
 git clone https://github.com/Al88/URLShortenerApi.git
-cd url-shortener
+cd urlshortener
 ```
 
 ### 2. Instalar dependencias
