@@ -19,7 +19,7 @@ Antes de comenzar, asegúrate de tener las siguientes herramientas instaladas:
 Clona el repositorio a tu máquina local:
 
 ```bash
-git clone https://github.com/tu-usuario/url-shortener.git
+git clone https://github.com/Al88/URLShortenerApi.git
 cd url-shortener
 ```
 
