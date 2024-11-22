@@ -10,3 +10,8 @@ php artisan route:cache
 
 echo "Running migrations..."
 php artisan migrate --force
+
+echo "generating swagger documentation..."
+php artisan l5-swagger:generate
+
+
